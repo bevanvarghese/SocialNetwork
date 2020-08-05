@@ -1,0 +1,8 @@
+//createScream
+POST https://us-central1-krowten-ffb6f.cloudfunctions.net/createScream 
+content-type: application/json
+
+{
+  "body": "New scream",
+  "userHandle": "new"
+}
