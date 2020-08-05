@@ -1,8 +1,11 @@
 //createScream
-POST https://us-central1-krowten-ffb6f.cloudfunctions.net/createScream 
-content-type: application/json
+# POST https://asia-east2-krowten-ffb6f.cloudfunctions.net/api/scream
+# content-type: application/json
 
-{
-  "body": "New scream",
-  "userHandle": "new"
-}
+# {
+#   "body": "Scream via API",
+#   "userHandle": "new"
+# }
+
+//after making API app
+GET https://asia-east2-krowten-ffb6f.cloudfunctions.net/api/screams

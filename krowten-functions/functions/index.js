@@ -6,31 +6,33 @@ admin.initializeApp();
 const express = require("express");
 const app = express();
 
-exports.getScreams = functions.https.onRequest((req, res) => {
+//get screams
+app.get("/screams", (req, res) => {
   admin
     .firestore()
     .collection("screams")
+    .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
       let screams = [];
       data.forEach((doc) => {
-        screams.push(doc.data());
+        screams.push({
+          screamId: doc.id,
+          ...doc.data(),
+        });
       });
       return res.json(screams);
     })
     .catch((err) => console.error(err));
 });
 
-exports.createScream = functions.https.onRequest((req, res) => {
-  if (req.method !== "POST") {
-    return res.status(400).json({ error: "Method not allowed" });
-  }
-
+//post scream
+app.post("/scream", (req, res) => {
   const newScream = {
     body: req.body.body,
     //First body is the body of the request, second body is the property of that
     userHandle: req.body.userHandle,
-    createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+    createdAt: new Date().toISOString(),
   };
 
   admin
@@ -46,3 +48,5 @@ exports.createScream = functions.https.onRequest((req, res) => {
       console.log(newScream);
     });
 });
+
+exports.api = functions.region("asia-east2").https.onRequest(app);
