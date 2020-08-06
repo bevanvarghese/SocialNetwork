@@ -1,11 +1,11 @@
 //createScream
-# POST https://asia-east2-krowten-ffb6f.cloudfunctions.net/api/scream
-# content-type: application/json
+POST http://localhost:5000/krowten-ffb6f/asia-east2/api/login
+content-type: application/json
 
-# {
-#   "body": "Scream via API",
-#   "userHandle": "new"
-# }
+{
+  "email": "user@email.com",
+  "password": "123512737"
+}
 
 //after making API app
-GET https://asia-east2-krowten-ffb6f.cloudfunctions.net/api/screams
+# GET https://asia-east2-krowten-ffb6f.cloudfunctions.net/api/screams
