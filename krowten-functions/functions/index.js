@@ -17,7 +17,7 @@ const config = {
 
 const firebase = require("firebase");
 firebase.initializeApp(config);
-const db = admin.firestore(); //reference to the database
+const db = firebase.firestore(); //reference to the database
 
 //get screams
 app.get("/screams", (req, res) => {
@@ -37,12 +37,48 @@ app.get("/screams", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+//middleware for authentication
+const FBAuth = (req, res, next) => {
+  //next proceeds to the handler after FBAuth in any respective function
+  let idToken;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    idToken = req.headers.authorization.split("Bearer ")[1]; //gets token
+  } else {
+    console.error("No token found");
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
+  admin
+    .auth()
+    .verifyIdToken(idToken)
+    .then((decodedToken) => {
+      req.user = decodedToken;
+      console.log(decodedToken);
+      return db
+        .collection("users")
+        .where("userId", "==", req.user.uid)
+        .limit(1)
+        .get();
+    })
+    .then((data) => {
+      req.user.handle = data.docs[0].data().handle;
+      return next(); //allows request to proceed towards parameter after FBAuth
+    })
+    .catch((err) => {
+      console.error("Error while verifying token ", err);
+      return res.status(403).json(err);
+    });
+};
+
 //post scream
-app.post("/scream", (req, res) => {
+app.post("/scream", FBAuth, (req, res) => {
   const newScream = {
     body: req.body.body,
     //First body is the body of the request, second body is the property of that
-    userHandle: req.body.userHandle,
+    userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
   };
 
@@ -93,7 +129,7 @@ app.post("/signup", (req, res) => {
   if (isEmpty(newUser.handle)) errors.password = "Must not be empty";
   if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
-  let token, userId;
+  let token, userID;
   db.doc(`/users/${newUser.handle}`)
     .get()
     .then((doc) => {
@@ -110,7 +146,7 @@ app.post("/signup", (req, res) => {
     })
     .then((data) => {
       //get authentication token
-      userId = data.user.uid;
+      userID = data.user.uid;
       return data.user.getIdToken();
     })
     .then((idToken) => {
@@ -119,8 +155,8 @@ app.post("/signup", (req, res) => {
       const userCredentials = {
         handle: newUser.handle,
         email: newUser.email,
-        createdAt: new Date().toISOString,
-        userId,
+        createdAt: new Date().toISOString(),
+        userId: userID,
       };
       return db.doc(`/users/${newUser.handle}`).set(userCredentials);
     })
