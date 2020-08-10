@@ -30,6 +30,16 @@ let db = {
       createdAt: "2020-08-05T18:02:17.309Z",
     },
   ],
+  notifications: [
+    {
+      recipient: "user",
+      sender: "john",
+      read: "true | false",
+      screamId: "asdahsdeqkhdlasjldhas",
+      type: "like | comment",
+      createdAt: "2020-08-05T18:02:17.309Z",
+    },
+  ],
 };
 
 //Redux data
