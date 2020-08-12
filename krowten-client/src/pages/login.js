@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 axios.defaults.baseURL =
-  'https://asia-east2-krowten-ffb6f.cloudfunctions.net/api.com';
+  'https://asia-east2-krowten-ffb6f.cloudfunctions.net/api';
 
 const styles = {
   form: {
