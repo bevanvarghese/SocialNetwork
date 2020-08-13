@@ -1,15 +1,15 @@
-const { admin, db } = require("../util/admin");
+const { admin, db } = require('../util/admin');
 
-const config = require("../util/config");
+const config = require('../util/config');
 
-const firebase = require("firebase");
+const firebase = require('firebase');
 firebase.initializeApp(config);
 
 const {
   validateSignupData,
   validateLoginData,
   reduceUserDetails,
-} = require("../util/validators");
+} = require('../util/validators');
 
 //create a user and sign up
 exports.signup = (req, res) => {
@@ -24,7 +24,7 @@ exports.signup = (req, res) => {
 
   if (!valid) return res.status(400).json(errors);
 
-  const noImg = "blankavatar.png";
+  const noImg = 'blankavatar.png';
 
   let token, userID;
   db.doc(`/users/${newUser.handle}`)
@@ -33,7 +33,7 @@ exports.signup = (req, res) => {
       //Firebase returns a doc snapshot anyway, so we need to check if the user exists
       if (doc.exists) {
         //bad request 400: handle exists already
-        return res.status(400).json({ handle: "this handle is already taken" });
+        return res.status(400).json({ handle: 'This handle is already taken' });
       } else {
         //create user
         return firebase
@@ -64,12 +64,12 @@ exports.signup = (req, res) => {
     .catch((err) => {
       //server error
       console.error(err);
-      if (err.code === "auth/email-already-in-use") {
-        return res.status(400).json({ email: "Email is already in use" });
+      if (err.code === 'auth/email-already-in-use') {
+        return res.status(400).json({ email: 'Email is already in use' });
       } else {
         return res
           .status(500)
-          .json({ general: "Something went wrong, please try again" });
+          .json({ general: 'Something went wrong, please try again' });
       }
     });
 };
@@ -98,16 +98,16 @@ exports.login = (req, res) => {
       //either auth/wrong-password or auth/user-not-found
       return res
         .status(403)
-        .json({ general: "Wrong credentials, please try again" });
+        .json({ general: 'Wrong credentials, please try again' });
     });
 };
 
 //upload user profile picture
 exports.uploadImage = (req, res) => {
-  const BusBoy = require("busboy"); //requires busboy dependancy
-  const path = require("path"); //path - default
-  const os = require("os"); //os - default
-  const fs = require("fs"); //file system - default
+  const BusBoy = require('busboy'); //requires busboy dependancy
+  const path = require('path'); //path - default
+  const os = require('os'); //os - default
+  const fs = require('fs'); //file system - default
 
   const busboy = new BusBoy({ headers: req.headers });
 
@@ -115,14 +115,14 @@ exports.uploadImage = (req, res) => {
   let imageToBeUploaded = {};
 
   //runs when the "file" event occurs
-  busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+  busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
     //validation of filetype
-    if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
-      return res.status(400).json({ error: "Wrong file type submitted" });
+    if (mimetype !== 'image/jpeg' && mimetype !== 'image/png') {
+      return res.status(400).json({ error: 'Wrong file type submitted' });
     }
 
     //to extract just the extension
-    const imageExtension = filename.split(".")[filename.split(".").length - 1];
+    const imageExtension = filename.split('.')[filename.split('.').length - 1];
 
     //generate a filename such as: 1238210124124.png
     imageFileName = `${Math.round(
@@ -137,7 +137,7 @@ exports.uploadImage = (req, res) => {
     file.pipe(fs.createWriteStream(filepath));
   });
   //runs when the event "finish"es
-  busboy.on("finish", () => {
+  busboy.on('finish', () => {
     //uploading, refer admin SDK docs
     admin
       .storage()
@@ -155,7 +155,7 @@ exports.uploadImage = (req, res) => {
         return db.doc(`/users/${req.user.handle}`).update({ imageUrl });
       })
       .then(() => {
-        return res.json({ message: "Image uploaded successfully" });
+        return res.json({ message: 'Image uploaded successfully' });
       })
       .catch((err) => {
         console.error(err);
@@ -172,7 +172,7 @@ exports.addUserDetails = (req, res) => {
   db.doc(`/users/${req.user.handle}`)
     .update(userDetails)
     .then(() => {
-      return res.json({ message: "Details added successfully" });
+      return res.json({ message: 'Details added successfully' });
     })
     .catch((err) => {
       console.error(err);
@@ -188,12 +188,12 @@ exports.getUserDetails = (req, res) => {
       if (doc.exists) {
         userData.user = doc.data();
         return db
-          .collection("screams")
-          .where("userHandle", "==", req.params.handle)
-          .orderBy("createdAt", "desc")
+          .collection('screams')
+          .where('userHandle', '==', req.params.handle)
+          .orderBy('createdAt', 'desc')
           .get();
       } else {
-        return res.status(404).json({ error: "User not found" });
+        return res.status(404).json({ error: 'User not found' });
       }
     })
     .then((data) => {
@@ -226,8 +226,8 @@ exports.getAuthenticatedUser = (req, res) => {
       if (doc.exists) {
         userData.credentials = doc.data();
         return db
-          .collection("likes")
-          .where("userHandle", "==", req.user.handle)
+          .collection('likes')
+          .where('userHandle', '==', req.user.handle)
           .get();
       }
     })
@@ -237,9 +237,9 @@ exports.getAuthenticatedUser = (req, res) => {
         userData.likes.push(doc.data());
       });
       return db
-        .collection("notifications")
-        .where("recipient", "==", req.user.handle)
-        .orderBy("createdAt", "desc")
+        .collection('notifications')
+        .where('recipient', '==', req.user.handle)
+        .orderBy('createdAt', 'desc')
         .limit(10)
         .get();
     })
@@ -274,7 +274,7 @@ exports.markNotificationsAsRead = (req, res) => {
   batch
     .commit()
     .then(() => {
-      return res.json({ message: "Notifications marked as read" });
+      return res.json({ message: 'Notifications marked as read' });
     })
     .catch((err) => {
       console.error(err);

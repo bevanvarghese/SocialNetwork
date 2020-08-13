@@ -12,36 +12,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const styles = {
-  form: {
-    textAlign: 'center',
-  },
-  image: {
-    margin: '20px auto 20px auto',
-    maxWidth: '120px',
-    maxHeight: '120px',
-  },
-  //card: {
-  //backgroundColor: '#ffffff',
-  //},
-  pageTitle: {
-    margin: 'auto auto auto auto',
-  },
-  textField: {
-    margin: '10px auto 10px auto',
-  },
-  button: {
-    margin: '10px auto auto auto',
-  },
-  customError: {
-    color: 'red',
-    fontSize: '0.8rem',
-    margin: '10px',
-  },
-  progress: {
-    position: 'absolute',
-  },
-};
+//redux stuff
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/userActions';
+
+const styles = (theme) => ({
+  ...theme.toSpread,
+});
 
 class login extends Component {
   constructor() {
@@ -49,37 +26,23 @@ class login extends Component {
     this.state = {
       email: '',
       password: '',
-      loading: false,
       errors: {},
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    }
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({
-      loading: true,
-    });
     const userData = {
       email: this.state.email,
       password: this.state.password,
     };
-    console.log(userData);
-    axios
-      .post('/login', userData)
-      .then((res) => {
-        console.log(res.data);
-        this.setState({
-          loading: false,
-        });
-        //method to push state to URL
-        this.props.history.push('/');
-      })
-      .catch((err) => {
-        this.setState({
-          errors: err.response.data,
-          loading: false,
-        });
-      });
+    this.props.loginUser(userData, this.props.history);
   };
 
   handleChange = (event) => {
@@ -90,8 +53,11 @@ class login extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { errors, loading } = this.state;
+    const {
+      classes,
+      UI: { loading },
+    } = this.props;
+    const { errors } = this.state;
     //vvv using three sm Grids does 12/3 = 4 colsize automatically vvv
     return (
       <Grid container className={classes.form}>
@@ -165,6 +131,22 @@ class login extends Component {
 
 login.propTypes = {
   classes: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(login);
+//takes whatever it needs from global state ie store.reducers
+const mapStateToProps = (state) => ({
+  user: state.user,
+  UI: state.UI,
+});
+
+const mapActionsToProps = {
+  loginUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(login));
