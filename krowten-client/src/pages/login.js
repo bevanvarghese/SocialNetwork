@@ -12,9 +12,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-axios.defaults.baseURL =
-  'https://asia-east2-krowten-ffb6f.cloudfunctions.net/api';
-
 const styles = {
   form: {
     textAlign: 'center',
@@ -79,7 +76,7 @@ class login extends Component {
       })
       .catch((err) => {
         this.setState({
-          error: err.response,
+          errors: err.response.data,
           loading: false,
         });
       });
