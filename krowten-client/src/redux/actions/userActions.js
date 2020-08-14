@@ -66,16 +66,6 @@ export const signupUser = (newUserData, history) => (dispatch) => {
     });
 };
 
-//helper for authorization header storage
-const setAuthorizationHeader = (token) => {
-  const FBIdToken = `Bearer ${token}`;
-  //to store token locally
-  localStorage.setItem('FBIdToken', FBIdToken);
-  //adding Authorization header for future auth
-  //now each time we send a request through axios, the header is present
-  axios.defaults.headers.common['Authorization'] = FBIdToken;
-};
-
 export const uploadImage = (formData) => (dispatch) => {
   dispatch({ type: LOADING_USER });
   axios
@@ -84,4 +74,24 @@ export const uploadImage = (formData) => (dispatch) => {
       dispatch(getUserData());
     })
     .catch((err) => console.log(err));
+};
+
+export const editUserDetails = (userDetails) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/user', userDetails)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => console.log(err));
+};
+
+//helper for authorization header storage
+const setAuthorizationHeader = (token) => {
+  const FBIdToken = `Bearer ${token}`;
+  //to store token locally
+  localStorage.setItem('FBIdToken', FBIdToken);
+  //adding Authorization header for future auth
+  //now each time we send a request through axios, the header is present
+  axios.defaults.headers.common['Authorization'] = FBIdToken;
 };
