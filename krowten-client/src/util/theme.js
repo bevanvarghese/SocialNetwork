@@ -10,7 +10,7 @@ export default {
       light: '#155562',
       main: '#1F7A8C',
       dark: '#4b94a3',
-      contrastText: '#000',
+      contrastText: '#fff',
     },
   },
   toSpread: {

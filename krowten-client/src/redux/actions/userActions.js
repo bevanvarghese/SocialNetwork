@@ -4,6 +4,7 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
+  LOADING_USER,
 } from '../types';
 import axios from 'axios';
 
@@ -34,6 +35,7 @@ export const logoutUser = () => (dispatch) => {
 
 //no argument cause it uses received token
 export const getUserData = () => (dispatch) => {
+  dispatch({ type: LOADING_USER });
   axios
     .get('/user')
     .then((res) => {
@@ -72,4 +74,14 @@ const setAuthorizationHeader = (token) => {
   //adding Authorization header for future auth
   //now each time we send a request through axios, the header is present
   axios.defaults.headers.common['Authorization'] = FBIdToken;
+};
+
+export const uploadImage = (formData) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/user/image', formData)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => console.log(err));
 };
