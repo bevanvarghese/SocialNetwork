@@ -78,7 +78,7 @@ class EditDetails extends Component {
           onClick={this.handleOpen}
           btnClassName={classes.button}
         >
-          <EditIcon color='primary' />
+          <EditIcon color='secondary' />
         </MyButton>
         <Dialog
           open={this.state.open}

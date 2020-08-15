@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MyButton from '../util/MyButton';
 import DeleteScream from './DeleteScream';
+import ScreamDialog from './ScreamDialog';
 //to make timings more readable
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -117,11 +118,14 @@ class Scream extends Component {
           </Typography>
           <Typography variant='body1'>{body}</Typography>
           {likeButton}
-          <span>{likeCount} likes</span>
+          <span>{likeCount} like</span>
+          {likeCount != 1 && <span>s</span>}
           <MyButton tip='Comment'>
             <ChatIcon color='secondary' />
           </MyButton>
-          <span>{commentCount} comments</span>
+          <span>{commentCount} comment</span>
+          {commentCount != 1 && <span>s</span>}
+          <ScreamDialog screamId={screamId} userHandle={userHandle} />
         </CardContent>
       </Card>
     );
