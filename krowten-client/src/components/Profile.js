@@ -48,7 +48,7 @@ const styles = (theme) => ({
         verticalAlign: 'middle',
       },
       '& a': {
-        color: theme.palette.primary.main,
+        color: theme.palette.secondary.main,
       },
     },
     '& hr': {
@@ -118,7 +118,7 @@ class Profile extends Component {
                 onClick={this.handleEditPicture}
                 btnClassName='button'
               >
-                <EditIcon color='primary' />
+                <EditIcon color='secondary' />
               </MyButton>
             </div>
             <hr />
@@ -126,7 +126,7 @@ class Profile extends Component {
               <MuiLink
                 component={Link}
                 to={`/users/${handle}`}
-                color='primary'
+                color='secondary'
                 variant='h5'
               >
                 @{handle}
@@ -136,13 +136,13 @@ class Profile extends Component {
               <hr />
               {location && (
                 <Fragment>
-                  <LocationOn color='primary' /> <span>{location}</span>
+                  <LocationOn color='secondary' /> <span>{location}</span>
                   <hr />
                 </Fragment>
               )}
               {website && (
                 <Fragment>
-                  <LinkIcon color='primary' />
+                  <LinkIcon color='secondary' />
                   <a href={website} target='_blank' rel='noopener noreferrer'>
                     {' '}
                     {website}
@@ -150,7 +150,7 @@ class Profile extends Component {
                   <hr />
                 </Fragment>
               )}
-              <CalendarToday color='primary' />{' '}
+              <CalendarToday color='secondary' />{' '}
               <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
             </div>
             <MyButton
@@ -158,7 +158,7 @@ class Profile extends Component {
               onClick={this.handleLogout}
               btnClassName='button'
             >
-              <KeyboardReturn color='primary' />
+              <KeyboardReturn color='secondary' />
             </MyButton>
             <EditDetails />
           </div>
@@ -170,7 +170,7 @@ class Profile extends Component {
             <div className={classes.buttons}>
               <Button
                 variant='contained'
-                color='primary'
+                color='secondary'
                 component={Link}
                 to='/login'
               >

@@ -1,12 +1,10 @@
 # //createScream
-POST https://asia-east2-krowten-ffb6f.cloudfunctions.net/api/signup
+POST https://asia-east2-krowten-ffb6f.cloudfunctions.net/api/scream
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ5ZTg4YzUzNzYxOTk2YTczNjIzZjE5MWQ1MTJkMmI0N2RmODAyYTEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20va3Jvd3Rlbi1mZmI2ZiIsImF1ZCI6Imtyb3d0ZW4tZmZiNmYiLCJhdXRoX3RpbWUiOjE1OTc1MDMxOTksInVzZXJfaWQiOiJWRmhhelFKZTJqaEtXSWMwcE1GTGJ0ekZqcTQyIiwic3ViIjoiVkZoYXpRSmUyamhLV0ljMHBNRkxidHpGanE0MiIsImlhdCI6MTU5NzUwMzE5OSwiZXhwIjoxNTk3NTA2Nzk5LCJlbWFpbCI6InVzZXIzQGVtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ1c2VyM0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.tCwAIbcK9v9WhNb5oua53tb9PFkdceXNYn3cd4Qx9BBDkWwCNrr7d57SGbrz6MgcJnkdh2LUAYRS1zFaArJQLl4v9S-JNX_vhP4M-w5iUQ39yoAL63vHj2JB5Ycvjcl64CYnE2Y7BmLVe4ZLFA1PKAxVChVyubPUMJLgzIBX7mZPD7zwsOi1nFegyUg5qaYgQOMD8tn08oq9qEmYZpBNyoxq70ltfgGNtIeBNx-Ub3O3RwV_2F9A5wnA0ajgyQuwLMUIL7KcLltGrYDxZl0U8Dvm0AGpPLhclGS7Gislq2XIWHXMELJK5thcCEOAkNsDAG9zkJpsyDbX3l6y1ljWWg
 
 {
-  "email": "",
-  "password": "",
-  "confirmPassword": "",
-  "handle": ""
+  "body": ""
 }
 
 # POST http://localhost:5000/krowten-ffb6f/asia-east2/api/scream
