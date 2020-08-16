@@ -88,7 +88,11 @@ class Scream extends Component {
           </MyButton>
           <span>{commentCount} comment</span>
           {commentCount != 1 && <span>s</span>}
-          <ScreamDialog screamId={screamId} userHandle={userHandle} />
+          <ScreamDialog
+            screamId={screamId}
+            userHandle={userHandle}
+            openDialog={this.props.openDialog}
+          />
         </CardContent>
       </Card>
     );
@@ -99,6 +103,7 @@ Scream.propTypes = {
   user: PropTypes.object.isRequired,
   scream: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
