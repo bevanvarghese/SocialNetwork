@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails.js';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 //redux
 import { connect } from 'react-redux';
-import { logoutUser, uploadImage } from '../redux/actions/userActions';
+import { logoutUser, uploadImage } from '../../redux/actions/userActions';
 //material ui stuff
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
