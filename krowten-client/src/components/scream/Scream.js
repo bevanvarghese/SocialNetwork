@@ -29,7 +29,7 @@ const styles = {
     minWidth: 200,
   },
   content: {
-    padding: 25,
+    padding: 20,
     objectFit: 'cover',
   },
 };
@@ -68,7 +68,7 @@ class Scream extends Component {
         />
         <CardContent className={classes.content}>
           <Typography
-            variant='h5'
+            variant='h6'
             component={Link}
             to={`users/${userHandle}`}
             color='secondary'

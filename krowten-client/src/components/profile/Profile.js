@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails.js';
 import MyButton from '../../util/MyButton';
+import ProfileSkeleton from '../../util/ProfileSkeleton';
 //redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../../redux/actions/userActions';
@@ -22,51 +23,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 
 const styles = (theme) => ({
-  paper: {
-    padding: 20,
-  },
-  profile: {
-    '& .image-wrapper': {
-      textAlign: 'center',
-      position: 'relative',
-      '& button': {
-        position: 'absolute',
-        top: '80%',
-        left: '70%',
-      },
-    },
-    '& .profile-image': {
-      width: 200,
-      height: 200,
-      objectFit: 'cover',
-      maxWidth: '100%',
-      borderRadius: '50%',
-    },
-    '& .profile-details': {
-      textAlign: 'center',
-      '& span, svg': {
-        verticalAlign: 'middle',
-      },
-      '& a': {
-        color: theme.palette.secondary.main,
-      },
-    },
-    '& hr': {
-      border: 'none',
-      margin: '0 0 10px 0',
-    },
-    '& svg.button': {
-      '&:hover': {
-        cursor: 'pointer',
-      },
-    },
-  },
-  buttons: {
-    textAlign: 'center',
-    '& a': {
-      margin: '20px 10px',
-    },
-  },
+  ...theme.toSpread,
 });
 
 class Profile extends Component {
@@ -189,7 +146,7 @@ class Profile extends Component {
         </Paper>
       )
     ) : (
-      <p>loading...</p>
+      <ProfileSkeleton />
     );
 
     return profileMarkup;
