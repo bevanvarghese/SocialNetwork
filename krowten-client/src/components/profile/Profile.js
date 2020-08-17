@@ -123,7 +123,8 @@ class Profile extends Component {
       ) : (
         <Paper className={classes.paper}>
           <Typography variant='body2' align='center'>
-            Profile not found. Please login or signup below.
+            Profile not found. Please login/signup to rate, comment and get
+            notified.
             <div className={classes.buttons}>
               <Button
                 variant='contained'
