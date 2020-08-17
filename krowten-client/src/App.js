@@ -21,6 +21,9 @@ import axios from 'axios';
 
 const theme = createMuiTheme(themeFile);
 
+axios.defaults.baseURL =
+  'https://asia-east2-krowten-ffb6f.cloudfunctions.net/api';
+
 //checking if logged in
 const token = localStorage.FBIdToken;
 if (token) {
