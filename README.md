@@ -31,4 +31,4 @@ Krowten spelt backwards is "Network". Not my most creative moment.
 
 ## Contact
 I'm always open to expanding this project to add new features or get rid of existing bugs.  
-Have any suggestions? Found any bugs? Feel free to drop me an email at bevan.rozario@gmail.com!
+Have any suggestions? Found any bugs? Feel free to drop me an email at bevan.rozario@gmail.com.
