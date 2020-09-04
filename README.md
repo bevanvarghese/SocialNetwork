@@ -18,6 +18,14 @@ Other features:
 - Other users can view aforementioned details by visiting a user's profile. 
 - Users receive notifications for activity on their posts. 
 
+## Screenshots
+<p float="left">
+<img src="images/home.jpg" width=400/>
+<img src="images/comment.jpg" width=400/>
+<img src="images/profile.jpg" width=400/>
+<img src="images/signup.JPG" width=400/>
+</p>
+
 ## Why is Krowten named so?
 Krowten spelt backwards is "Network". Not my most creative moment. 
 
